@@ -1,55 +1,69 @@
-0:00 Now, I told you there is two things that we can improve here 
-0:03 and let's comment this out, let's first work on this part here,
-0:06 and in order to understand what is going on, 
-0:09 with what I am about to write, 
-0:11 there is a new concept which we have not talked about yet, 
-0:13 involving keyword arguments that's the orange or reddish values here, 
-0:20 where you name the parameters, they are not positional, they are named, 
-0:23 and dictionaries. 
-0:25 And, if I wrote a function that took keyword arguments, 
-0:28 I might have one positional parameter 1 and then I can say 
-0:31 there is a kwargs now this is just a name for a parameter,  it doesn't mean anything, 
-0:37 kind of like self is the convention but not required for classes 
-0:40 and I can tell Python **kwargs and that means this is going to be 
-0:46 sort of extensible set of parameters that can be passed 
-0:49 and is actually going to come in such that this is a dictionary. 
-0:53 With that in mind, what you can do is 
-0:55 you can kind of do the reverse with dictionaries,
-0:58 so this takes a bunch of arguments that are written like this, 
-1:03 and turns it into a dictionary, 
-1:05 but if I have a dictionary I can turn this into a bunch of assignments like this
-1:08 during a method call, so I can come over here and say 
-1:11 I have this dictionary it's called result 
-1:13 and I would like to say title=results of title, poster=results of poster, and so on, 
-1:18 I can just say **result, that's it. 
-1:21 Now if I run it should operate exactly the same boom,
-1:25  it does, you can see title set, poster set and everything isn't that cool? 
-1:29 That's improvement one.
-1:31 Let's keep going Improvement two is 
-1:34 we saw with list comprehensions and generator expressions 
-1:38 that we don't really need to make a list and append to it 
-1:41 if all we want to do is build up this list, 
-1:43 so we can come over here and say you know what, 
-1:45 movies are actually going to be... some kind of movie results object 
-1:51 that is generated from let's call this, something simple like m for m in results:. 
-1:58 So we are going to basically loop over the results, get the dictionary m, 
-2:03 we are going to unpack it, into this movie results named tuple 
-2:07 and for each one of these we are going to build a list that has these items in here. 
-2:11 So again, this should operate exactly the same. 
-2:14 There you go, I can show you he whole thing, if I can type, 
-2:20 so you can see we have a list of movie results, 
-2:22 and just compare line 36 to 39 which if I really wanted to go crazy on you 
-2:27 I could write like this but I am not going to, right, 
-2:30 this would be valid Python if I wanted it to be, 
-2:33 but I much prefer to read in this style, compare that, those 3 lines, to this. 
-2:39 When you hear people talk about Pythonic code, 
-2:42 that means it's conforming to the sort of best and proper idioms
-2:46 that are part of the Python language. You see code written like this, 
-2:50 you are like oh these people are taking some other language idioms 
-2:54 like maybe C or Javascript or something like that 
-2:56 and just converting it over just such that it will run in Python 
-3:01 but not like deeply embracing the language, 
-3:04 down here, this is an example of something you might call Pythonic, I mean, 
-3:08 look how much more amazingly readable and awesome this is, 
-3:11 it's easy to maintain, now granted you've got to know Python a little better
-3:14 to understand what's going on, but once you do, oh how sweat.
+00:01 Let's return to how we're parsing these movies here.
+00:04 What we're doing is we're creating this movie list
+00:06 we're looping over all the results, we're allocating one of these,
+00:09 and then we're adding it here, let's address this part first.
+00:13 So it turns out that this keyword value keyword value thing that we're doing
+00:18 actually has a shortcut, a simplified version,
+00:21 when you're working with dictionaries as the source,
+00:24 and this md is a dictionary, we'll be able to condense this down
+00:28 assuming that the keywords here and the keys in the dictionary
+00:33 that it's coming from actually line up exactly,
+00:36 if that's the case, you can do what I’m bout to show you.
+00:39 So let me save this, let me make a copy of this and we'll try another one,
+00:42 so quick diversion so you guys understand what's going on here,
+00:46 suppose I have a method or function and it has
+00:49 some positional parameters, so like x y and z, right,
+00:53 if I'm going to call this method, I would say seven, one
+00:58 and I could even say z = 2, right
+01:01 so I could either call it positionally like x and y
+01:04 or I could call this function using the keyword named parameter thing.
+01:08 Some methods are extensible, so I could say format = true, age = seven
+01:16 but you can see, PyCharm is saying no, no, this is not going to work;
+01:19 so in order to make this sort of extensible,
+01:22 to say look you can pass other stuff and maybe we can work with it
+01:25 we're going to use this concept that's often called
+01:28 in the variable kwargs, keyword arguments.
+01:31 Now this name here is just a convention,
+01:34 it could be jerry it could be anything, it doesn't matter,
+01:37 the symbol that we use is this ** here,
+01:41 so if I print out kwargs, like that, if I run this, let's see what we get;
+01:48 you can see kwargs its format is true and age as seven
+01:53 like this extra step that we passed here, under **kwargs,
+01:57 becomes, you can see the curly braces- a dictionary.
+02:00 So, with that in mind, there's a way to reverse this,
+02:04 so what we're doing here is we're taking keyword arguments
+02:07 and we're turning them into a dictionary,
+02:10 but we can use in a reversed direction we can use this **
+02:13 to go from a dictionary to keyword arguments,
+02:16 so what we can do down here is we can replace all of this
+02:19 with just going to the dictionary that has the data md
+02:23 and we can say ** md, and what that means basically is
+02:28 exactly what we had written besides little zeros,
+02:31 besides this little part right here where I was saying alternate default values
+02:35 but this is what it means, it means go here and get all the values out
+02:39 and apply them as keyword arguments.
+02:42 So if I run this, it should run exactly the same,
+02:45 if I search for 'runner' we should see things like Blade Runner and so on.
+02:49 So this is pretty cool, again I said it's only going to work
+02:53 if the keyword arguments or the arguments expected
+02:56 exactly match up with the keys, if there is
+02:59 one is capital title one is lower case title this isn't going to work.
+03:03 This is really, really nice. Now, let's do one more thing.
+03:07 We can improve it one more time,
+03:10 we can come down here and whenever you want to
+03:13 create a list and then loop over something,
+03:15 and then put some sort of transformed or computed element into the list like this,
+03:20 we can do this with a list comprehension.
+03:24 So, we saw that before, we can come down here and just say this
+03:27 maybe write like this for md in movie list, and what are we going to put in,
+03:36 we want to put in this movie result thing,
+03:39 so taking the md and converting it to that, there.
+03:42 Now, this should run more or less identical, the results should be identical,
+03:46 so if we go down here for runner again, we get exactly the same results.
+03:52 So look at how amazing this is, look how short and clean and concise,
+03:56 we want to go to the movie list and convert it into a list of movie results
+04:01 by assigning all the values that are in the dictionary,
+04:05 compare that to this big puppy, this one is more flexible
+04:09 and maybe you need to use this form like I said
+04:12 if the keys don't match up or things like that,
+04:14 but I think this is really beautiful and we'll use that in this particular app.
